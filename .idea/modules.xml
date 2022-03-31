@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$USER_HOME$/Desktop/final-project/.idea/final-project.iml" filepath="$USER_HOME$/Desktop/final-project/.idea/final-project.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/meal-recommender.iml" filepath="$PROJECT_DIR$/.idea/meal-recommender.iml" />
+      <module fileurl="file://$APPLICATION_CONFIG_DIR$/projects/.idea/projects.iml" filepath="$APPLICATION_CONFIG_DIR$/projects/.idea/projects.iml" />
     </modules>
   </component>
 </project>
