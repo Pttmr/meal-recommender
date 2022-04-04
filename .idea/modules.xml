@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$APPLICATION_CONFIG_DIR$/projects/Fruits_360/.idea/Fruits_360.iml" filepath="$APPLICATION_CONFIG_DIR$/projects/Fruits_360/.idea/Fruits_360.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/meal-recommender.iml" filepath="$PROJECT_DIR$/.idea/meal-recommender.iml" />
       <module fileurl="file://$APPLICATION_CONFIG_DIR$/projects/.idea/projects.iml" filepath="$APPLICATION_CONFIG_DIR$/projects/.idea/projects.iml" />
     </modules>
