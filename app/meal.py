@@ -1,10 +1,24 @@
 import streamlit as st
+from streamlit_option_menu import option_menu
 import pandas as pd
 import numpy as np
 import tensorflow as tf
 import matplotlib.pyplot as plt
 import glob
 from PIL import Image
+
+# 3. CSS style definitions
+selected3 = option_menu(None, ["Meal idea", "Recipes",  "Storage"],
+                        icons=['lightbulb', 'collection', "basket3"],
+                        menu_icon="cast", default_index=0, orientation="horizontal"
+                        # styles={
+                        #     "container": {"padding": "0!important", "background-color": "#007398"},
+                        #     "icon": {"color": "black", "font-size": "24px"},
+                        #     "nav-link": {"font-size": "25px", "text-align": "left", "margin":"0px", "--hover-color": "#eee"},
+                        #     #"nav-link-selected": {"background-color": "green"},
+                        # }
+                        )
+
 
 # from streamlit_webrtc import webrtc_streamer
 # import av
