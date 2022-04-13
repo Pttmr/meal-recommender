@@ -10,9 +10,10 @@ data = [
     ['banana-smoothie', 1, ['banana', 'milk'], 'Cut 2 bananas in pieces. Fill 0.5l of milk into a blender, add mango pieces and blend.'],
     ['orange-juice', 1, ['orange', 'water'], 'Cut 2 oranges in half. Juice them with a fruit press, add water if wanted.']
     ]
+recipe = str(data[0][0])
 
 with st.sidebar:
-    choose = option_menu(None, ["About", "Groceries", "Recipes", "Storage"],
+    choose = option_menu(None, ["About", "Groceries", "Cooking recipes", "Fridge"],
                          icons=['house', 'camera fill', 'collection', 'basket'],
                          menu_icon="app-indicator", default_index=0,
                          styles={
@@ -54,8 +55,8 @@ elif choose == "Groceries":
         font-size:35px ; font-family: 'Cooper Black'; color: #009500;} 
         </style> """, unsafe_allow_html=True)
         st.markdown('<p class="font">Upload a photo of your groceries here...</p>', unsafe_allow_html=True)
-        st.write("This page analysis your photo 📷 and adds the ingredients to your storage cabin.\n"
-                 "\nIt then recommends you the best dish 🍱 with the ingredients that are available.")
+        st.markdown("This page analysis your photo 📷 and adds the ingredients to your storage cabin.")
+
     with col2:  # To display brand logo
         st.image(logo, width=150)
     # Add file uploader to allow users to upload photos
@@ -78,8 +79,16 @@ elif choose == "Groceries":
     #         sketch = cv2.divide(gray_scale, 255 - blur_image, scale=256)
     #         st.image(sketch, width=300)
 
+    st.markdown("It then recommends you the best dish 🍱 with the ingredients that are available.")
+
+    #ingredients = st.text_input("Enter ingredients you would like to cook with")
+    st.session_state.execute_recsys = st.button("Give me a recommendation!")
+
+    if st.session_state.execute_recsys:
+        st.write(f"I recommend you try {recipe}!")
+
 # %%
-elif choose == "Recipes":
+elif choose == "Cooking recipes":
     st.markdown(""" <style> .font {
     font-size:35px ; font-family: 'Cooper Black'; color: #009500;} 
     </style> """, unsafe_allow_html=True)
@@ -95,7 +104,7 @@ elif choose == "Recipes":
 
 
 # %%
-elif choose == "Storage":
+elif choose == "Fridge":
     st.markdown(""" <style> .font {
     font-size:35px ; font-family: 'Cooper Black'; color: #009500;} 
     </style> """, unsafe_allow_html=True)
