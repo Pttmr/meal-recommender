@@ -1,14 +1,16 @@
 import streamlit as st
 from streamlit_option_menu import option_menu
-from PIL import Image
+from PIL import Image, ImageOps
 import pandas as pd
 import numpy as np
 import tensorflow as tf
 import joblib
 
 #%%
-#loading the cat classifier model
-model1 = joblib.load("model1.pkl")
+#loading the classifier model1
+#model1 = joblib.load("model1.pkl")
+model1 = tf.keras.models.load_model('saved_model.pb')
+#model2 = tf.keras.models.load_model("model1.pkl")
 # %%
 
 
@@ -72,7 +74,7 @@ elif choose == "Groceries":
 
     if uploaded_file is not None:
         show = st.image(uploaded_file, width=130)
-        image = tf.keras.preprocessing.image.load_img(uploaded_file, target_size=(100,100,3))
+        picture = tf.keras.preprocessing.image.load_img(uploaded_file, target_size=(100,100,3))
 
 
     st.markdown("It then recommends you the best dish 🍱 with the ingredients that are available. 🥳")
