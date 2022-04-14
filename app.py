@@ -6,20 +6,25 @@ import numpy as np
 import tensorflow as tf
 import joblib
 
-#%%
-#loading the classifier model1
-#model1 = joblib.load("model1.pkl")
-model1 = tf.keras.models.load_model('saved_model.pb')
-#model2 = tf.keras.models.load_model("model1.pkl")
+
+# %%
+# loading the classifier model1
+# model1 = joblib.load("model1.pkl")
+reconstructed_model1 = tf.keras.models.load_model('/home/bee110493/.config/JetBrains/DataSpell2021.3/projects'
+                                                      '/meal-recommender/model1')
+
+# model2 = tf.keras.models.load_model("model1.pkl")
 # %%
 
 
-
 data = [
-    ['apple-juice', 1, ['apple', 'water'], 'Cut and peel 2 apples. Fill 0.5l of water into a blender, add apple pieces and blend.'],
-    ['banana-smoothie', 1, ['banana', 'milk'], 'Cut 2 bananas in pieces. Fill 0.5l of milk into a blender, add mango pieces and blend.'],
-    ['orange-juice', 1, ['orange', 'water'], 'Cut 2 oranges in half. Juice them with a fruit press, add water if wanted.']
-    ]
+    ['apple-juice', 1, ['apple', 'water'],
+     'Cut and peel 2 apples. Fill 0.5l of water into a blender, add apple pieces and blend.'],
+    ['banana-smoothie', 1, ['banana', 'milk'],
+     'Cut 2 bananas in pieces. Fill 0.5l of milk into a blender, add mango pieces and blend.'],
+    ['orange-juice', 1, ['orange', 'water'],
+     'Cut 2 oranges in half. Juice them with a fruit press, add water if wanted.']
+]
 recipe = str(data[0][0])
 
 with st.sidebar:
@@ -49,10 +54,14 @@ if choose == "About":
     with col2:  # To display brand log
         st.image(logo, width=130)
 
-    st.write("Cooking is a hobby for some and a major problem for others. However, you can always use a helping hand for cooking. :tomato: \n"
-             "\nAs many are working in home office 💻 nowadays, it is often a difficult decision to decide what to eat for lunch or dinner.\n"
-             "\nIt often happens that one does not know which food items 🥗 are in the kitchen, it is always a challenge to decide what to cook for a meal.\n"
-             "\nThis inspired me to create a system that can recommend recipes 📔  based on ingredient suggestions.")
+    st.write(
+        "Cooking is a hobby for some and a major problem for others. However, you can always use a helping hand for "
+        "cooking. :tomato: \n "
+        "\nAs many are working in home office 💻 nowadays, it is often a difficult decision to decide what to eat for "
+        "lunch or dinner.\n "
+        "\nIt often happens that one does not know which food items 🥗 are in the kitchen, it is always a challenge "
+        "to decide what to cook for a meal.\n "
+        "\nThis inspired me to create a system that can recommend recipes 📔  based on ingredient suggestions.")
 
 
 
@@ -71,11 +80,11 @@ elif choose == "Groceries":
     # Add file uploader to allow users to upload photos
 
     uploaded_file = st.file_uploader("", type=['jpg', 'png', 'jpeg'])
+    # picture = tf.keras.preprocessing.image.load_img(uploaded_file, target_size=(100,100,3))
 
     if uploaded_file is not None:
         show = st.image(uploaded_file, width=130)
-        picture = tf.keras.preprocessing.image.load_img(uploaded_file, target_size=(100,100,3))
-
+        # picture = tf.keras.preprocessing.image.load_img(uploaded_file, target_size=(100,100,3))
 
     st.markdown("It then recommends you the best dish 🍱 with the ingredients that are available. 🥳")
 
@@ -83,9 +92,17 @@ elif choose == "Groceries":
         st.write("Please upload an Image to classify!")
     else:
         with st.spinner("Classifying..."):
-            tf.keras.Sequential([model1, tf.keras.layers.Softmax()])
+            #picture = tf.keras.preprocessing.image.load_img(uploaded_file, target_size=(100, 100, 3))
+            #np.testing.assert_allclose(reconstructed_model1.predict(picture))
 
-        #st.write(f"I recommend you try {recipe}!")
+            # model1.predict(picture)
+            # np.testing.assert_allclose(
+            #     model1.predict(picture), reconstructed_model.predict(test_input)
+            # )
+
+            # tf.keras.Sequential([model1, tf.keras.layers.Softmax()])
+
+            st.write(f"I recommend you try {recipe}!")
 
 
 # %%
@@ -119,8 +136,7 @@ elif choose == "Fridge":
         ['butter', 'g', 150],
         ['eggs', 'count', 4],
         ['apples', 'count', 2]
-        ]
+    ]
 
     df2 = pd.DataFrame(fridge, columns=['name', 'unit', 'amount'])
     st.dataframe(df2)
-
