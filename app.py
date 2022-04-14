@@ -42,7 +42,7 @@ with st.sidebar:
 
 # %%
 
-logo = Image.open(r'app/data/groceries.jpeg')
+logo = Image.open(r'app/groceries.jpeg')
 
 if choose == "About":
     col1, col2 = st.columns([0.8, 0.2])
@@ -89,9 +89,13 @@ elif choose == "Groceries":
     st.markdown("It then recommends you the best dish 🍱 with the ingredients that are available. 🥳")
 
     if st.button("Give me a recommendation!"):
-        st.write("Please upload an Image to classify!")
+        #st.write("Please upload an Image to classify!")
+        st.write(f"I recommend you try {recipe}!")
     else:
-        with st.spinner("Classifying..."):
+        #st.write(f"I recommend you try {recipe}!")
+        st.write("")
+
+        #with st.spinner("Classifying..."):
             #picture = tf.keras.preprocessing.image.load_img(uploaded_file, target_size=(100, 100, 3))
             #np.testing.assert_allclose(reconstructed_model1.predict(picture))
 
@@ -102,7 +106,7 @@ elif choose == "Groceries":
 
             # tf.keras.Sequential([model1, tf.keras.layers.Softmax()])
 
-            st.write(f"I recommend you try {recipe}!")
+         #   st.write(f"I recommend you try {recipe}!")
 
 
 # %%
