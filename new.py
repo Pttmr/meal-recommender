@@ -2,9 +2,17 @@ import streamlit as st
 from streamlit_option_menu import option_menu
 from PIL import Image
 import pandas as pd
+import numpy as np
+import tensorflow as tf
+import joblib
 
-
+#%%
+#loading the cat classifier model
+cat_clf = joblib.load("model1.pkl")
 # %%
+
+
+
 data = [
     ['apple-juice', 1, ['apple', 'water'], 'Cut and peel 2 apples. Fill 0.5l of water into a blender, add apple pieces and blend.'],
     ['banana-smoothie', 1, ['banana', 'milk'], 'Cut 2 bananas in pieces. Fill 0.5l of milk into a blender, add mango pieces and blend.'],
@@ -24,7 +32,9 @@ with st.sidebar:
                              "nav-link-selected": {"background-color": "#02ab21"},
                          }
                          )
+
 # %%
+
 logo = Image.open(r'app/data/groceries.jpeg')
 
 if choose == "About":
@@ -44,9 +54,6 @@ if choose == "About":
 
 
 
-
-
-
 # %%
 elif choose == "Groceries":
     col1, col2 = st.columns([0.8, 0.2])
@@ -60,31 +67,23 @@ elif choose == "Groceries":
     with col2:  # To display brand logo
         st.image(logo, width=150)
     # Add file uploader to allow users to upload photos
-    uploaded_file = st.file_uploader("", type=['jpg', 'png', 'jpeg'])
-    # if uploaded_file is not None:
-    #     image = Image.open(uploaded_file)
-    #
-    #     col1, col2 = st.columns([0.5, 0.5])
-    #     with col1:
-    #         st.markdown('<p style="text-align: center;">Before</p>', unsafe_allow_html=True)
-    #         st.image(image, width=300)
-    #
-    #     with col2:
-    #         st.markdown('<p style="text-align: center;">After</p>', unsafe_allow_html=True)
-    #
-    #         converted_img = np.array(image.convert('RGB'))
-    #         gray_scale = cv2.cvtColor(converted_img, cv2.COLOR_RGB2GRAY)
-    #         inv_gray = 255 - gray_scale
-    #         blur_image = cv2.GaussianBlur(inv_gray, (125, 125), 0, 0)
-    #         sketch = cv2.divide(gray_scale, 255 - blur_image, scale=256)
-    #         st.image(sketch, width=300)
 
-    st.markdown("It then recommends you the best dish 🍱 with the ingredients that are available.")
+    uploaded_file = st.file_uploader("", type=['jpg', 'png', 'jpeg'])
+
+    if uploaded_file is not None:
+    #     image = Image.open(uploaded_file)
+        image = tf.keras.preprocessing.image.load_img(uploaded_file, target_size=(100,100,3))
+
+
+
+
+    st.markdown("It then recommends you the best dish 🍱 with the ingredients that are available. 🥳")
 
     #ingredients = st.text_input("Enter ingredients you would like to cook with")
     st.session_state.execute_recsys = st.button("Give me a recommendation!")
 
     if st.session_state.execute_recsys:
+
         st.write(f"I recommend you try {recipe}!")
 
 # %%
@@ -94,7 +93,7 @@ elif choose == "Cooking recipes":
     </style> """, unsafe_allow_html=True)
     st.markdown('<p class="font">Collection of your recipes</p>', unsafe_allow_html=True)
 
-    st.subheader('Here are your recipes listed')
+    st.subheader('Here are your recipes listed:')
     df = pd.DataFrame(data, columns=['name', 'portion', 'ingredients', 'instructions']
                       )
 
@@ -108,8 +107,18 @@ elif choose == "Fridge":
     st.markdown(""" <style> .font {
     font-size:35px ; font-family: 'Cooper Black'; color: #009500;} 
     </style> """, unsafe_allow_html=True)
-    st.markdown('<p class="font">Storage</p>', unsafe_allow_html=True)
-    st.subheader('Import Data into Python')
-    st.markdown(
-        'To start a data science project in Python, you will need to first import your data into a Pandas data frame.')
+    st.markdown('<p class="font">Fridge</p>', unsafe_allow_html=True)
+    st.subheader('Currently you have in your fridge:')
+
+    fridge = [
+        ['milk', 'ml', 2000],
+        ['sugar', 'g', 500],
+        ['wheat-flour', 'g', 750],
+        ['butter', 'g', 150],
+        ['eggs', 'count', 4],
+        ['apples', 'count', 2]
+        ]
+
+    df2 = pd.DataFrame(fridge, columns=['name', 'unit', 'amount'])
+    st.dataframe(df2)
 
