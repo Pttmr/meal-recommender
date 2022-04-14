@@ -8,7 +8,7 @@ import joblib
 
 #%%
 #loading the cat classifier model
-cat_clf = joblib.load("model1.pkl")
+model1 = joblib.load("model1.pkl")
 # %%
 
 
@@ -71,20 +71,20 @@ elif choose == "Groceries":
     uploaded_file = st.file_uploader("", type=['jpg', 'png', 'jpeg'])
 
     if uploaded_file is not None:
-    #     image = Image.open(uploaded_file)
+        show = st.image(uploaded_file, width=130)
         image = tf.keras.preprocessing.image.load_img(uploaded_file, target_size=(100,100,3))
-
-
 
 
     st.markdown("It then recommends you the best dish 🍱 with the ingredients that are available. 🥳")
 
-    #ingredients = st.text_input("Enter ingredients you would like to cook with")
-    st.session_state.execute_recsys = st.button("Give me a recommendation!")
+    if st.button("Give me a recommendation!"):
+        st.write("Please upload an Image to classify!")
+    else:
+        with st.spinner("Classifying..."):
+            tf.keras.Sequential([model1, tf.keras.layers.Softmax()])
 
-    if st.session_state.execute_recsys:
+        #st.write(f"I recommend you try {recipe}!")
 
-        st.write(f"I recommend you try {recipe}!")
 
 # %%
 elif choose == "Cooking recipes":
